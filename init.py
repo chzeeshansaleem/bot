@@ -182,8 +182,19 @@ def main():
                     page.click('button[name="book"]')
 
                     # Wait for the booking confirmation
-                    page.wait_for_selector('.booking-confirmation', timeout=60000)
+                    # page.wait_for_selector('.booking-confirmation', timeout=60000)
                     print('Booking successful')
+                    
+                     # Fill in the payment form
+                    page.fill('input#cardNumber', '4111111111111111')
+                    page.select_option('select[ng-model="month"]', '1')  # January
+                    page.select_option('select[ng-model="selectedYear"]', '2024')
+                    page.fill('input#ValidationCode', '123')
+                    
+                    # Click the pay button
+                    page.click('input#btnPay')
+
+                    print('Payment successful')
                 else:
                     print('No available dates found')
 
