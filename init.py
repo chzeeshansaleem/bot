@@ -186,15 +186,22 @@ def main():
                     print('Booking successful')
                     
                      # Fill in the payment form
-                    page.fill('input#cardNumber', '4111111111111111')
-                    page.select_option('select[ng-model="month"]', '1')  # January
-                    page.select_option('select[ng-model="selectedYear"]', '2024')
-                    page.fill('input#ValidationCode', '123')
                     
+                    page.fill('input[id="cardNumber"]', '4111111111111111')
+                    page.evaluate('''() => {
+                        document.querySelector('input[id="cardNumber"]').value = "4111111111111111";
+                    }''')
+                    page.select_option('select[ng-model="select-dropdown"]', 'January')  # January
+                    page.select_option('select[ng-model="selectedYear"]', '2024')
+                    page.fill('input[id="ValidationCode"]', '123')
+                    page.evaluate('''() => {
+                        document.querySelector('input[id="ValidationCode"]').value = "123";
+                    }''')
                     # Click the pay button
                     page.click('input#btnPay')
 
                     print('Payment successful')
+                    page.goto('https://blsitalypakistan.com/account/logout')
                 else:
                     print('No available dates found')
 
